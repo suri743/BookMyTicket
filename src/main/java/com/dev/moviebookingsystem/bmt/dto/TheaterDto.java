@@ -10,7 +10,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class TheaterDto {
-    int id;
+    Integer id;
     AdminDataDto adminData;
     String name;
     String address;
