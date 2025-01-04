@@ -1,7 +1,4 @@
 package com.dev.moviebookingsystem.bmt.service;
-
-<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/AuditoriumService.java
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.exceptions.AuditoriumNotFoundException;
 import com.dev.moviebookingsystem.bmt.exceptions.TheaterNotFoundException;
@@ -11,17 +8,6 @@ import com.dev.moviebookingsystem.bmt.model.Auditorium;
 import com.dev.moviebookingsystem.bmt.model.Theater;
 import com.dev.moviebookingsystem.bmt.repository.AuditoriumRepository;
 import com.dev.moviebookingsystem.bmt.repository.TheaterRepository;
-=======
-import com.dev.moviebookingsystem.mbs.dto.AuditoriumDto;
-import com.dev.moviebookingsystem.mbs.exceptions.AuditoriumNotFoundException;
-import com.dev.moviebookingsystem.mbs.exceptions.TheaterNotFoundException;
-import com.dev.moviebookingsystem.mbs.mapper.AuditoriumMapper;
-import com.dev.moviebookingsystem.mbs.mapper.MapperHelper;
-import com.dev.moviebookingsystem.mbs.model.Auditorium;
-import com.dev.moviebookingsystem.mbs.model.Theater;
-import com.dev.moviebookingsystem.mbs.repository.AuditoriumRepository;
-import com.dev.moviebookingsystem.mbs.repository.TheaterRepository;
->>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/AuditoriumService.java
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

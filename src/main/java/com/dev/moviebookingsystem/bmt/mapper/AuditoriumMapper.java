@@ -1,13 +1,7 @@
 package com.dev.moviebookingsystem.bmt.mapper;
 
-<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/mapper/AuditoriumMapper.java
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.model.Auditorium;
-=======
-import com.dev.moviebookingsystem.mbs.dto.AuditoriumDto;
-import com.dev.moviebookingsystem.mbs.model.Auditorium;
->>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/mapper/AuditoriumMapper.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;

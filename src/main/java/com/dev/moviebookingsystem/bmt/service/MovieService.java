@@ -1,19 +1,10 @@
 package com.dev.moviebookingsystem.bmt.service;
 
-<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/MovieService.java
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.MovieDto;
 import com.dev.moviebookingsystem.bmt.exceptions.MovieNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.MovieMapper;
 import com.dev.moviebookingsystem.bmt.model.Movie;
 import com.dev.moviebookingsystem.bmt.repository.MovieRepository;
-=======
-import com.dev.moviebookingsystem.mbs.dto.MovieDto;
-import com.dev.moviebookingsystem.mbs.exceptions.MovieNotFoundException;
-import com.dev.moviebookingsystem.mbs.mapper.MovieMapper;
-import com.dev.moviebookingsystem.mbs.model.Movie;
-import com.dev.moviebookingsystem.mbs.repository.MovieRepository;
->>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/MovieService.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
