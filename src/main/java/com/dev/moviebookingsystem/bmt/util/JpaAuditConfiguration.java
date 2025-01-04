@@ -1,4 +1,4 @@
-package com.dev.moviebookingsystem.mbs.util;
+package com.dev.moviebookingsystem.bmt.util;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
