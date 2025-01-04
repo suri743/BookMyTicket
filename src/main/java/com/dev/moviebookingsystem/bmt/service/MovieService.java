@@ -1,15 +1,22 @@
 package com.dev.moviebookingsystem.bmt.service;
 
+<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/MovieService.java
 import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.MovieDto;
 import com.dev.moviebookingsystem.bmt.exceptions.MovieNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.MovieMapper;
 import com.dev.moviebookingsystem.bmt.model.Movie;
 import com.dev.moviebookingsystem.bmt.repository.MovieRepository;
+=======
+import com.dev.moviebookingsystem.mbs.dto.MovieDto;
+import com.dev.moviebookingsystem.mbs.exceptions.MovieNotFoundException;
+import com.dev.moviebookingsystem.mbs.mapper.MovieMapper;
+import com.dev.moviebookingsystem.mbs.model.Movie;
+import com.dev.moviebookingsystem.mbs.repository.MovieRepository;
+>>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/MovieService.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,11 +27,6 @@ public class MovieService {
     private final MovieMapper movieMapper;
 
     public MovieDto createMovie(MovieDto movieDto) {
-
-        movieDto = movieDto.toBuilder().adminData(AdminDataDto
-                                          .builder()
-                                          .createdAt(LocalDateTime.now()).build()).build();
-
         Movie movie = movieRepository.save(movieMapper.mapDtoToEntity(movieDto));
         return movieMapper.mapEntityToDto(movie);
     }
@@ -55,7 +57,6 @@ public class MovieService {
 
         movie.setId(id);
         movie.setCreatedAt(mainMovie.getCreatedAt());
-        movie.setUpdatedAt(LocalDateTime.now());
         movie.setDescription(movie.getDescription() == null ? mainMovie.getDescription() : movie.getDescription());
         movie.setLanguage(movie.getLanguage() == null ? mainMovie.getLanguage() : movie.getLanguage());
         movie.setMovieFeatures(movie.getMovieFeatures() == null ? mainMovie.getMovieFeatures() : movie.getMovieFeatures());

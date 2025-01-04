@@ -1,11 +1,20 @@
 package com.dev.moviebookingsystem.bmt.service;
 
+<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/SeatService.java
 import com.dev.moviebookingsystem.bmt.dto.SeatDto;
 import com.dev.moviebookingsystem.bmt.exceptions.SeatNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.MapperHelper;
 import com.dev.moviebookingsystem.bmt.model.Auditorium;
 import com.dev.moviebookingsystem.bmt.model.Seat;
 import com.dev.moviebookingsystem.bmt.repository.SeatRepository;
+=======
+import com.dev.moviebookingsystem.mbs.dto.SeatDto;
+import com.dev.moviebookingsystem.mbs.exceptions.SeatNotFoundException;
+import com.dev.moviebookingsystem.mbs.mapper.MapperHelper;
+import com.dev.moviebookingsystem.mbs.model.Auditorium;
+import com.dev.moviebookingsystem.mbs.model.Seat;
+import com.dev.moviebookingsystem.mbs.repository.SeatRepository;
+>>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/SeatService.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

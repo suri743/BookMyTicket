@@ -1,15 +1,22 @@
 package com.dev.moviebookingsystem.bmt.service;
 
+<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/CityService.java
 import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.CityDto;
 import com.dev.moviebookingsystem.bmt.exceptions.CityNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.CityMapper;
 import com.dev.moviebookingsystem.bmt.model.City;
 import com.dev.moviebookingsystem.bmt.repository.CityRepository;
+=======
+import com.dev.moviebookingsystem.mbs.dto.CityDto;
+import com.dev.moviebookingsystem.mbs.exceptions.CityNotFoundException;
+import com.dev.moviebookingsystem.mbs.mapper.CityMapper;
+import com.dev.moviebookingsystem.mbs.model.City;
+import com.dev.moviebookingsystem.mbs.repository.CityRepository;
+>>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/CityService.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,8 +28,6 @@ public class CityService {
     private final TheaterService theaterService;
 
     public CityDto createCity(CityDto cityDto) {
-        cityDto = cityDto.toBuilder().adminData(AdminDataDto.builder()
-                                       .createdAt(LocalDateTime.now()).build()).build();
         City city = cityRepository.save(cityMapper.mapDtoToEntity(cityDto));
         return cityMapper.mapEntityToDto(city);
     }

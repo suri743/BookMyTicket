@@ -1,5 +1,6 @@
 package com.dev.moviebookingsystem.bmt.service;
 
+<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/SeatHelper.java
 import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.SeatDto;
 import com.dev.moviebookingsystem.bmt.exceptions.InvalidSeatRowColumnException;
@@ -10,10 +11,20 @@ import com.dev.moviebookingsystem.bmt.model.constant.PhysicalSeatStatus;
 import com.dev.moviebookingsystem.bmt.model.constant.SeatType;
 import com.dev.moviebookingsystem.bmt.repository.AuditoriumRepository;
 import com.dev.moviebookingsystem.bmt.repository.SeatRepository;
+=======
+import com.dev.moviebookingsystem.mbs.dto.SeatDto;
+import com.dev.moviebookingsystem.mbs.exceptions.InvalidSeatRowColumnException;
+import com.dev.moviebookingsystem.mbs.exceptions.SeatNotFoundException;
+import com.dev.moviebookingsystem.mbs.model.Auditorium;
+import com.dev.moviebookingsystem.mbs.model.Seat;
+import com.dev.moviebookingsystem.mbs.model.constant.PhysicalSeatStatus;
+import com.dev.moviebookingsystem.mbs.model.constant.SeatType;
+import com.dev.moviebookingsystem.mbs.repository.AuditoriumRepository;
+import com.dev.moviebookingsystem.mbs.repository.SeatRepository;
+>>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/SeatHelper.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,10 +70,6 @@ public class SeatHelper {
 
     public SeatDto.SeatDtoBuilder seatDetermination(SeatDto seatDto) {
         SeatDto.SeatDtoBuilder seatDtoBuilder = seatDto.toBuilder();
-        seatDtoBuilder.adminData(AdminDataDto
-                                     .builder()
-                                     .createdAt(LocalDateTime.now()).build());
-
         if(seatDto.getSeatStatus() == null) {
             seatDtoBuilder.seatStatus(PhysicalSeatStatus.AVAILABLE);
         }

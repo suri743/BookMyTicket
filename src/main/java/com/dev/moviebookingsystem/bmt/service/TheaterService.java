@@ -1,5 +1,6 @@
 package com.dev.moviebookingsystem.bmt.service;
 
+<<<<<<< Updated upstream:src/main/java/com/dev/moviebookingsystem/bmt/service/TheaterService.java
 import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.dto.TheaterDto;
@@ -7,10 +8,17 @@ import com.dev.moviebookingsystem.bmt.exceptions.TheaterNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.TheaterMapper;
 import com.dev.moviebookingsystem.bmt.model.Theater;
 import com.dev.moviebookingsystem.bmt.repository.TheaterRepository;
+=======
+import com.dev.moviebookingsystem.mbs.dto.AuditoriumDto;
+import com.dev.moviebookingsystem.mbs.dto.TheaterDto;
+import com.dev.moviebookingsystem.mbs.exceptions.TheaterNotFoundException;
+import com.dev.moviebookingsystem.mbs.mapper.TheaterMapper;
+import com.dev.moviebookingsystem.mbs.model.Theater;
+import com.dev.moviebookingsystem.mbs.repository.TheaterRepository;
+>>>>>>> Stashed changes:src/main/java/com/dev/moviebookingsystem/mbs/service/TheaterService.java
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,9 +30,6 @@ public class TheaterService {
     private final AuditoriumService auditoriumService;
 
     public TheaterDto createTheater(TheaterDto theaterDto) {
-        theaterDto = theaterDto.toBuilder().adminData(AdminDataDto
-                                          .builder()
-                                          .createdAt(LocalDateTime.now()).build()).build();
         Theater theater = theaterRepository.save(theaterMapper.mapDtoToEntity(theaterDto));
         return theaterMapper.mapEntityToDto(theater);
     }
