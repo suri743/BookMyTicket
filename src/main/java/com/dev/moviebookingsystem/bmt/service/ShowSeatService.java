@@ -1,6 +1,5 @@
 package com.dev.moviebookingsystem.bmt.service;
 
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.ShowSeatDto;
 import com.dev.moviebookingsystem.bmt.exceptions.ShowSeatNotFoundException;
 import com.dev.moviebookingsystem.bmt.mapper.ShowSeatMapper;
@@ -11,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,11 +20,6 @@ public class ShowSeatService {
 
     @Transactional
     public ShowSeatDto createShowSeat(ShowSeatDto showSeatDto) {
-        showSeatDto = showSeatDto.toBuilder()
-            .adminData(AdminDataDto
-                           .builder()
-                           .createdAt(LocalDateTime.now()).build())
-            .build();
         return showSeatMapper.mapEntityToDto(showSeatRepository.save(showSeatMapper.mapDtoToEntity(showSeatDto)));
     }
 

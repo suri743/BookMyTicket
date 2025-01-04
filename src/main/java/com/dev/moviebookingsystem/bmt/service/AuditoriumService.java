@@ -1,6 +1,4 @@
 package com.dev.moviebookingsystem.bmt.service;
-
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.exceptions.AuditoriumNotFoundException;
 import com.dev.moviebookingsystem.bmt.exceptions.TheaterNotFoundException;
@@ -14,7 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +28,6 @@ public class AuditoriumService {
 
     @Transactional
     public AuditoriumDto createAuditorium(AuditoriumDto auditoriumDto) {
-        auditoriumDto = auditoriumDto.toBuilder().adminData(AdminDataDto
-                                             .builder()
-                                             .createdAt(LocalDateTime.now()).build()).build();
-
         Optional<Theater> optionalTheater = theaterRepository.findById(auditoriumDto.getTheater().getId());
 
         if (optionalTheater.isEmpty()) {

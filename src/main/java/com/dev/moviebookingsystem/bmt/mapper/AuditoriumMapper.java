@@ -1,6 +1,5 @@
 package com.dev.moviebookingsystem.bmt.mapper;
 
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.model.Auditorium;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +7,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Component
@@ -24,7 +24,6 @@ public class AuditoriumMapper {
             .id(auditorium.getId())
             .name(auditorium.getName())
             .capacity(auditorium.getCapacity())
-            .adminData(getAdminDataDto(auditorium))
             .auditoriumFeatures(auditorium.getAuditoriumFeatures())
             .seats(seatMapper.mapEntityListToDtoList(auditorium.getSeats()))
             .shows(showMapper.mapEntityListToDtoList(auditorium.getShows()))
@@ -46,18 +45,12 @@ public class AuditoriumMapper {
     }
 
     public List<AuditoriumDto> mapEntityListToDtoList(List<Auditorium> auditoriums) {
-        return auditoriums.stream().map(this::mapEntityToDto).toList();
+        return Objects.isNull(auditoriums) ? null :
+            auditoriums.stream().map(this::mapEntityToDto).toList();
     }
 
     public List<Auditorium> mapDtoListToEntityList(List<AuditoriumDto> auditoriumDtos) {
-        return auditoriumDtos.stream().map(this::mapDtoToEntity).toList();
-    }
-
-    private static AdminDataDto getAdminDataDto(Auditorium auditorium) {
-        return AdminDataDto
-            .builder()
-            .createdAt(auditorium.getCreatedAt())
-            .updatedAt(auditorium.getUpdatedAt())
-            .build();
+        return Objects.isNull(auditoriumDtos) ? null :
+               auditoriumDtos.stream().map(this::mapDtoToEntity).toList();
     }
 }

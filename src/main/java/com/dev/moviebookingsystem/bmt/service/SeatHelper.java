@@ -1,6 +1,5 @@
 package com.dev.moviebookingsystem.bmt.service;
 
-import com.dev.moviebookingsystem.bmt.dto.AdminDataDto;
 import com.dev.moviebookingsystem.bmt.dto.SeatDto;
 import com.dev.moviebookingsystem.bmt.exceptions.InvalidSeatRowColumnException;
 import com.dev.moviebookingsystem.bmt.exceptions.SeatNotFoundException;
@@ -13,7 +12,6 @@ import com.dev.moviebookingsystem.bmt.repository.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,10 +57,6 @@ public class SeatHelper {
 
     public SeatDto.SeatDtoBuilder seatDetermination(SeatDto seatDto) {
         SeatDto.SeatDtoBuilder seatDtoBuilder = seatDto.toBuilder();
-        seatDtoBuilder.adminData(AdminDataDto
-                                     .builder()
-                                     .createdAt(LocalDateTime.now()).build());
-
         if(seatDto.getSeatStatus() == null) {
             seatDtoBuilder.seatStatus(PhysicalSeatStatus.AVAILABLE);
         }
