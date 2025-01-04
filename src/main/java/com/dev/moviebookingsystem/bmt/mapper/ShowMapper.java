@@ -1,43 +1,83 @@
 package com.dev.moviebookingsystem.bmt.mapper;
 
 import com.dev.moviebookingsystem.bmt.dto.ShowDto;
+import com.dev.moviebookingsystem.bmt.dto.ShowSeatDto;
+import com.dev.moviebookingsystem.bmt.model.Seat;
 import com.dev.moviebookingsystem.bmt.model.Show;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import com.dev.moviebookingsystem.bmt.model.ShowSeat;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE,
-    unmappedTargetPolicy = ReportingPolicy.IGNORE,
-    uses = {ShowSeatMapper.class, MovieMapper.class})
+@Mapper(componentModel = "spring", uses = {ShowSeatMapper.class, MovieMapper.class})
 public abstract class ShowMapper {
 
     @Autowired
     @Lazy
-    AuditoriumMapper auditoriumMapper;
+    ShowSeatMapper showSeatMapper;
 
-    @Mapping(source = "adminData.createdAt", target = "createdAt")
-    @Mapping(source = "adminData.updatedAt", target = "updatedAt")
-    public abstract Show mapDtoToEntity(ShowDto showDto);
+    @Autowired
+    @Lazy
+    SeatMapper seatMapper;
+
+
 
     @Mapping(source = "createdAt", target = "adminData.createdAt")
     @Mapping(source = "updatedAt", target = "adminData.updatedAt")
+    @Mapping(target = "seats", ignore = true)
+    @Mapping(target = "auditorium", ignore = true)
     public abstract ShowDto mapEntityToDto(Show show);
 
+    @Mapping(source = "adminData.createdAt", target = "createdAt")
+    @Mapping(source = "adminData.updatedAt", target = "updatedAt")
+    @Mapping(target = "seats", ignore = true)
+    @Mapping(target = "auditorium", ignore = true)
+    public abstract Show mapDtoToEntity(ShowDto showDto);
+
     public abstract List<ShowDto> mapEntityListToDtoList(List<Show> shows);
-    abstract List<Show> mapDtoListToEntityList(List<ShowDto> shows);
+
+    public abstract List<Show> mapDtoListToEntityList(List<ShowDto> showDtos);
 
     @AfterMapping
-    protected void mapAuditoriumToShowDto(ShowDto.ShowDtoBuilder showDtoBuilder, Show show) {
-        showDtoBuilder.auditorium(auditoriumMapper.mapEntityToDto(show.getAuditorium()));
+    public void mapSeatsToDto(Show show, @MappingTarget ShowDto.ShowDtoBuilder showDtoBuilder) {
+        if (show.getSeats() != null) {
+           List<ShowSeatDto> showSeatDtos = show.getSeats()
+               .stream()
+               .map(showSeat ->  ShowSeatDto.builder()
+                          .id(showSeat.getId())
+                          .price(showSeat.getPrice())
+                          .seatStatus(showSeat.getSeatStatus())
+                          .seatNumber(showSeat.getSeat() != null ?
+                                showSeat.getSeat().getSeatNumber() : null)
+                       .build())
+               .toList();
+
+            showDtoBuilder.seats(showSeatDtos);
+        }
     }
 
     @AfterMapping
-    protected void mapAuditoriumDtoToShow(Show showBuilder, ShowDto showDto) {
-        showBuilder.setAuditorium(auditoriumMapper.mapDtoToEntity(showDto.getAuditorium()));
+    public void mapSeatsToEntity(ShowDto showDto, @MappingTarget Show.ShowBuilder<?, ?> show) {
+        if (showDto.getSeats() != null) {
+            List<ShowSeat> showSeats = showDto.getSeats()
+                .stream()
+                .map(showSeatDto -> {
+                    ShowSeat showSeat = new ShowSeat();
+                    showSeat.setId(showSeatDto.getId());
+                    showSeat.setPrice(showSeatDto.getPrice());
+                    showSeat.setSeatStatus(showSeatDto.getSeatStatus());
+                    showSeat.setSeat(showSeatDto.getSeatNumber() != null ?
+                        Seat.builder().seatNumber(showSeatDto.getSeatNumber()).build() : null);
+                     return showSeat;
+                })
+                .toList();
+
+            // Set the parent reference using forEach
+            showSeats.forEach(seat -> seat.setShow(show.build()));
+
+            show.seats(showSeats);
+        }
     }
 }

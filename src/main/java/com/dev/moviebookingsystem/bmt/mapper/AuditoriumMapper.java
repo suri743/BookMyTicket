@@ -2,21 +2,27 @@ package com.dev.moviebookingsystem.bmt.mapper;
 
 import com.dev.moviebookingsystem.bmt.dto.AuditoriumDto;
 import com.dev.moviebookingsystem.bmt.model.Auditorium;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor
 @Component
 public class AuditoriumMapper {
 
+    @Autowired
     @Lazy
-    private final SeatMapper seatMapper;
+    SeatMapper seatMapper;
+
+    @Autowired
     @Lazy
-    private final ShowMapper showMapper;
+    ShowMapper showMapper;
+
+    @Autowired
+    @Lazy
+    TheaterMapper theaterMapper;
 
     public AuditoriumDto mapEntityToDto(Auditorium auditorium) {
         return AuditoriumDto
@@ -31,14 +37,26 @@ public class AuditoriumMapper {
     }
 
     public Auditorium mapDtoToEntity(AuditoriumDto auditoriumDto) {
-        return Auditorium
-            .builder()
-            .id(auditoriumDto.getId())
+
+        Auditorium auditorium = new Auditorium();
+
+        if ( auditoriumDto.getId() != null ) {
+            auditorium.setId(auditoriumDto.getId() );
+        }
+
+        if(auditoriumDto.getAdminData() != null) {
+            auditorium.setCreatedAt(auditoriumDto.getAdminData().getCreatedAt());
+            auditorium.setUpdatedAt(auditoriumDto.getAdminData().getUpdatedAt());
+        }
+
+        if(auditoriumDto.getTheater() != null) {
+            auditorium.setTheater(theaterMapper.mapDtoToEntity(auditoriumDto.getTheater()));
+        }
+
+        return auditorium.toBuilder()
             .name(auditoriumDto.getName())
             .capacity(auditoriumDto.getCapacity())
             .auditoriumFeatures(auditoriumDto.getAuditoriumFeatures())
-            .createdAt(auditoriumDto.getAdminData().getCreatedAt())
-            .updatedAt(auditoriumDto.getAdminData().getUpdatedAt())
             .seats(seatMapper.mapDtoListToEntityList(auditoriumDto.getSeats()))
             .shows(showMapper.mapDtoListToEntityList(auditoriumDto.getShows()))
             .build();
@@ -52,5 +70,29 @@ public class AuditoriumMapper {
     public List<Auditorium> mapDtoListToEntityList(List<AuditoriumDto> auditoriumDtos) {
         return Objects.isNull(auditoriumDtos) ? null :
                auditoriumDtos.stream().map(this::mapDtoToEntity).toList();
+    }
+
+    public AuditoriumDto mapEntityToDtoForShow(Auditorium auditorium) {
+        return AuditoriumDto
+            .builder()
+            .id(auditorium.getId())
+            .name(auditorium.getName())
+            .capacity(auditorium.getCapacity())
+            .auditoriumFeatures(auditorium.getAuditoriumFeatures())
+            .theater(theaterMapper.mapEntityToDto(auditorium.getTheater()))
+            .build();
+    }
+
+    public Auditorium mapDtoToEntityForShow(AuditoriumDto auditoriumDto) {
+        return Auditorium
+            .builder()
+            .id(auditoriumDto.getId())
+            .name(auditoriumDto.getName())
+            .capacity(auditoriumDto.getCapacity())
+            .auditoriumFeatures(auditoriumDto.getAuditoriumFeatures())
+            .createdAt(auditoriumDto.getAdminData().getCreatedAt())
+            .updatedAt(auditoriumDto.getAdminData().getUpdatedAt())
+            .theater(theaterMapper.mapDtoToEntity(auditoriumDto.getTheater()))
+            .build();
     }
 }

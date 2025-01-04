@@ -11,10 +11,10 @@ import java.util.List;
 @Builder(toBuilder = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class AuditoriumDto {
-    int id;
+    Integer id;
     String name;
     AdminDataDto adminData;
-    int capacity;
+    Integer capacity;
     List<SeatDto> seats;
     List<ShowDto> shows;
     List<AuditoriumFeature> auditoriumFeatures;

@@ -43,7 +43,7 @@ public class SeatService {
             .map(seat -> this.getSeatById(seat.getId())).toList();
     }
 
-    public List<SeatDto> getSeatByAuditoriumId(int auditoriumId) {
+    public List<SeatDto> getSeatsByAuditoriumId(int auditoriumId) {
         List<Seat> seats = seatRepository.findSeatsByAuditoriumId(auditoriumId);
         return seats.stream()
             .map(seat -> this.getSeatById(seat.getId())).toList();

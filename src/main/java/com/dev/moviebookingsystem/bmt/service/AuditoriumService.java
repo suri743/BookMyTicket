@@ -48,7 +48,7 @@ public class AuditoriumService {
 
         auditoriumDto = auditoriumDto.toBuilder()
             .shows(showService.getShowsByAuditoriumId(auditoriumId))
-            .seats(seatService.getSeatByAuditoriumId(auditoriumId))
+            .seats(seatService.getSeatsByAuditoriumId(auditoriumId))
             .theater(mapperHelper.getTheaterDto(auditorium.getTheater()))
             .build();
 
@@ -67,11 +67,5 @@ public class AuditoriumService {
     public List<AuditoriumDto> getAuditoriumsByTheaterId(int theaterId) {
         return auditoriumMapper.mapEntityListToDtoList(
             auditoriumRepository.findAuditoriumsByTheaterId(theaterId));
-    }
-
-    public int getAuditoriumCapacity(int auditoriumId) {
-        Auditorium auditorium = auditoriumRepository.findById(auditoriumId)
-            .orElseThrow(() -> new AuditoriumNotFoundException("Auditorium not found for id: " + auditoriumId));
-        return auditorium.getCapacity();
     }
 }

@@ -31,7 +31,7 @@ public class SeatHelper {
                                                     + seatDto.getRow() + " " + seatDto.getColumn());
         }
 
-        List<Seat> allSeats = seatRepository.findAll();
+        List<Seat> allSeats = seatRepository.findSeatsByAuditoriumId(seatDto.getAuditorium().getId());
 
         for(Seat seat : allSeats) {
             if((seat.getRow() == seatDto.getRow() && seat.getColumn() == seatDto.getColumn()) ||

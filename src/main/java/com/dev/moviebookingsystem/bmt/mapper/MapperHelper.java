@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class MapperHelper {
     private final TheaterMapper theaterMapper;
     private final SeatMapper seatMapper;
-    private final AuditoriumMapper auditoriumMapper;
 
     public Auditorium mapTheaterEntityToDto(Auditorium auditorium, Theater theater) {
         return auditorium.toBuilder()

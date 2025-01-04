@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ShowController {
     private final ShowService showService;
 
     @PostMapping("/show")
-    public ResponseEntity<ShowDto> addShow(ShowDto show) {
+    public ResponseEntity<ShowDto> addShow(@RequestBody ShowDto show) {
         return ResponseEntity.ok(showService.createShow(show));
     }
 
