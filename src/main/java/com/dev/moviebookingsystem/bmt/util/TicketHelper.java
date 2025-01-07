@@ -1,11 +1,13 @@
 package com.dev.moviebookingsystem.bmt.util;
 
+import com.dev.moviebookingsystem.bmt.dto.ShowDto;
 import com.dev.moviebookingsystem.bmt.dto.ShowSeatDto;
 import com.dev.moviebookingsystem.bmt.dto.TicketDto;
 import com.dev.moviebookingsystem.bmt.dto.UserDto;
 import com.dev.moviebookingsystem.bmt.exceptions.InvalidTicketDetailsException;
 import com.dev.moviebookingsystem.bmt.model.constant.SeatStatus;
 import com.dev.moviebookingsystem.bmt.service.ShowSeatService;
+import com.dev.moviebookingsystem.bmt.service.ShowService;
 import com.dev.moviebookingsystem.bmt.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ public class TicketHelper {
 
     private final UserService userService;
     private final ShowSeatService showSeatService;
+    private final ShowService showService;
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public List<ShowSeatDto> validateTicket(TicketDto ticketDto)
@@ -41,15 +44,29 @@ public class TicketHelper {
             throw new InvalidTicketDetailsException("No seats provided for ticket");
         }
 
+        if(Objects.isNull(ticketDto.getShow()) || Objects.isNull(ticketDto.getShow().getId())) {
+            throw new InvalidTicketDetailsException("Invalid show provided: ");
+        }
+
+        if(Objects.isNull(showService.getShowById(ticketDto.getShow().getId()))) {
+            throw new InvalidTicketDetailsException("Show not found for id: " + ticketDto.getShow().getId());
+        }
+
+        ShowDto show = showService.getShowById(ticketDto.getShow().getId());
+
         Map<Integer, ShowSeatDto> showSeats =
             showSeatService.getShowSeatsByShowId(ticketDto.getShow().getId()).stream()
                 .collect(Collectors.toMap(ShowSeatDto::getId, seat -> seat));
+
+        if(showSeats.isEmpty())
+            throw new InvalidTicketDetailsException("All the seats are booked for show: "
+                                                    + show.getStartTime());
 
         List<ShowSeatDto> bookingSeats = new ArrayList<>();
 
         for (ShowSeatDto seat : ticketDto.getSeats()){
             if(!showSeats.containsKey(seat.getId())) {
-                throw new InvalidTicketDetailsException("Seat not available for show: " + seat.getId());
+                throw new InvalidTicketDetailsException("Provided Seat not available: " + seat.getId());
             }
             bookingSeats.add(showSeats.get(seat.getId()));
         }
