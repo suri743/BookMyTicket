@@ -14,6 +14,8 @@ import com.dev.moviebookingsystem.bmt.repository.AuditoriumRepository;
 import com.dev.moviebookingsystem.bmt.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class ShowService {
     private final ShowMapper showMapper;
     private final ShowSeatMapper showSeatMapper;
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public ShowDto createShow(ShowDto showDto) {
 
         Show show = showMapper.mapDtoToEntity(showDto);

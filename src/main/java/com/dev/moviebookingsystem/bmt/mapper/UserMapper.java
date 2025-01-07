@@ -16,26 +16,30 @@ public abstract class UserMapper {
 
     @Autowired
     @Lazy
-    private TicketMapper ticketMapper;
+    public TicketMapper ticketMapper;
 
     @Mapping(source = "adminData.createdAt", target = "createdAt")
     @Mapping(source = "adminData.updatedAt", target = "updatedAt")
+    @Mapping(target = "tickets", ignore = true)
     public abstract User mapDtoToEntity(UserDto userDto);
 
     @Mapping(source = "createdAt", target = "adminData.createdAt")
     @Mapping(source = "updatedAt", target = "adminData.updatedAt")
+    @Mapping(target = "tickets", ignore = true)
     public abstract UserDto mapEntityToDto(User user);
 
     public abstract List<UserDto> mapEntityListToDtoList(List<User> users);
     public abstract List<User> mapDtoListToEntityList(List<UserDto> users);
 
     @AfterMapping
-    protected void mapUserTicketsToUserDto(@MappingTarget UserDto.UserDtoBuilder userDtoBuilder,User user) {
-        userDtoBuilder.tickets(ticketMapper.mapEntityListToDtoList(user.getTickets()));
+    public void mapUserTicketsToUserDto(@MappingTarget UserDto.UserDtoBuilder userDtoBuilder,User user) {
+        if(user.getTickets() != null)
+            userDtoBuilder.tickets(ticketMapper.mapEntityListToDtoList(user.getTickets()));
     }
 
     @AfterMapping
-    protected void mapUserDtoTicketsToUser(@MappingTarget User userBuilder,UserDto userDto) {
-        userBuilder.setTickets(ticketMapper.mapDtoListToEntityList(userDto.getTickets()));
+    public void mapUserDtoTicketsToUser(@MappingTarget User.UserBuilder<?, ?> userBuilder,UserDto userDto) {
+        if(userDto.getTickets() != null)
+            userBuilder.tickets(ticketMapper.mapDtoListToEntityList(userDto.getTickets()));
     }
 }

@@ -38,12 +38,17 @@ public class ShowSeatService {
     }
 
     public List<ShowSeatDto> getShowSeatsByShowId(int showId) {
-        List<ShowSeat> showSeats = showSeatRepository.findShowSeatsByShowId(showId);
+        List<ShowSeat> showSeats = showSeatRepository.findByShowIdAndSeatStatus(showId, SeatStatus.AVAILABLE);
         return showSeatMapper.mapShowSeatEntityListToShowSeatDtoList(showSeats);
     }
 
     public List<ShowSeatDto> getShowSeatsByTicketId(int ticketId) {
         return showSeatMapper.mapShowSeatEntityListToShowSeatDtoList(
             showSeatRepository.findByTicketId(ticketId));
+    }
+
+    @Transactional
+    public void updateShowSeat(ShowSeatDto showSeatDto) {
+        showSeatRepository.save(showSeatMapper.mapDtoToEntity(showSeatDto));
     }
 }

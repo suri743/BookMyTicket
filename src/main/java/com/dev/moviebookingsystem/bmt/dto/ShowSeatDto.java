@@ -13,11 +13,11 @@ public class ShowSeatDto {
     Integer id;
     AdminDataDto adminData;
     double price;
-
-    @JsonBackReference("show-seat")
     ShowDto show;
     SeatDto seat;
     String seatNumber;
     SeatStatus seatStatus;
+
+    @JsonBackReference
     TicketDto ticket;
 }

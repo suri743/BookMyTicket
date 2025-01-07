@@ -5,6 +5,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder(toBuilder = true)
+@NoArgsConstructor
 public class User extends BaseEntity{
     private String name;
     private String email;

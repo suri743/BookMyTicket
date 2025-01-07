@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder(toBuilder = true)
+@NoArgsConstructor
 public class Ticket extends BaseEntity{
 
     private String ticketNumber;
@@ -26,14 +28,14 @@ public class Ticket extends BaseEntity{
     @JoinColumn(name = "ticket_id")
     private List<ShowSeat> seats;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Show show;
 
     private LocalDateTime bookingTime;
 
     private double totalAmount;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
 
     @Enumerated(EnumType.STRING)

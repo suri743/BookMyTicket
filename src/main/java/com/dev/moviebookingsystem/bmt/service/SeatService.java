@@ -6,6 +6,7 @@ import com.dev.moviebookingsystem.bmt.mapper.MapperHelper;
 import com.dev.moviebookingsystem.bmt.model.Auditorium;
 import com.dev.moviebookingsystem.bmt.model.Seat;
 import com.dev.moviebookingsystem.bmt.repository.SeatRepository;
+import com.dev.moviebookingsystem.bmt.util.SeatHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
