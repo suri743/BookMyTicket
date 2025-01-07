@@ -1,4 +1,4 @@
-package com.dev.moviebookingsystem.bmt.service;
+package com.dev.moviebookingsystem.bmt.util;
 
 import com.dev.moviebookingsystem.bmt.dto.SeatDto;
 import com.dev.moviebookingsystem.bmt.exceptions.InvalidSeatRowColumnException;
